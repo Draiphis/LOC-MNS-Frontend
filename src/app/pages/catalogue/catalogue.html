@@ -1,1 +1,292 @@
-<p>catalogue works!</p>
+<!-- TopAppBar Component -->
+<header class="top-app-bar">
+  <div class="top-app-bar__inner">
+    <div class="top-app-bar__left">
+      <button class="icon-btn" (click)="toggleDrawer()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <h1 class="top-app-bar__title">MNS Loc</h1>
+    </div>
+    <div class="top-app-bar__right">
+      <button class="icon-btn">
+        <span class="material-symbols-outlined">account_circle</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- NavigationDrawer Overlay -->
+<div
+  class="drawer-overlay"
+  [class.drawer-overlay--visible]="drawerOpen"
+  (click)="toggleDrawer()"
+></div>
+
+<!-- NavigationDrawer Component -->
+<aside class="drawer" [class.drawer--visible]="drawerOpen">
+  <div class="drawer__inner">
+    <h2 class="drawer__title">MNS Loc</h2>
+    <nav class="drawer__nav">
+      <a class="drawer__link drawer__link--active" href="#">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>Inventory</span>
+      </a>
+      <a class="drawer__link" href="#">
+        <span class="material-symbols-outlined">history_edu</span>
+        <span>My Rentals</span>
+      </a>
+      <a class="drawer__link" href="#">
+        <span class="material-symbols-outlined">event_available</span>
+        <span>Reservations</span>
+      </a>
+      <a class="drawer__link" href="#">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Settings</span>
+      </a>
+    </nav>
+  </div>
+</aside>
+
+<main class="main-content">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__left">
+      <p class="hero__label">LOGISTIQUE ET RÉSERVES</p>
+      <h2 class="hero__title">Catalogue<br />Matériel</h2>
+    </div>
+    <div class="hero__right">
+      <p class="hero__meta-label">MISE À JOUR SYSTÈME</p>
+      <p class="hero__meta-value">2023.Q4.V2</p>
+    </div>
+  </section>
+
+  <!-- Search & Filter Layout -->
+  <section class="layout">
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Catégories</h3>
+        <ul class="category-list">
+          <li class="category-list__item category-list__item--active">
+            <span>TOUT LE MATÉRIEL</span>
+            <span class="category-list__count">128</span>
+          </li>
+          <li class="category-list__item">
+            <span>STATIONS DE TRAVAIL</span>
+            <span class="category-list__count">42</span>
+          </li>
+          <li class="category-list__item">
+            <span>TERMINAUX MOBILES</span>
+            <span class="category-list__count">36</span>
+          </li>
+          <li class="category-list__item">
+            <span>INFRASTRUCTURE RÉSEAU</span>
+            <span class="category-list__count">15</span>
+          </li>
+          <li class="category-list__item">
+            <span>PÉRIPHÉRIQUES</span>
+            <span class="category-list__count">35</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Filtres Avancés</h3>
+        <div class="filter-group">
+          <label class="filter-group__label">Type de matériel</label>
+          <select class="filter-group__select">
+            <option>Tous les types</option>
+            <option>Laptops</option>
+            <option>Tablets</option>
+            <option>Cameras</option>
+            <option>Monitors</option>
+            <option>Networking</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-group__label">Marque</label>
+          <select class="filter-group__select">
+            <option>Toutes les marques</option>
+            <option>Apple</option>
+            <option>Dell</option>
+            <option>Sony</option>
+            <option>Eizo</option>
+            <option>Cisco</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-group__label">Modèle</label>
+          <input class="filter-group__input" placeholder="RECHERCHER MODÈLE..." type="text" />
+        </div>
+      </div>
+
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">État de Disponibilité</h3>
+        <div class="checkbox-group">
+          <label class="checkbox-group__item">
+            <input type="checkbox" />
+            <span>Disponible Immédiatement</span>
+          </label>
+          <label class="checkbox-group__item">
+            <input type="checkbox" />
+            <span>En cours de révision</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sidebar__notice">
+        <p class="sidebar__notice-label">Avis Technique</p>
+        <p class="sidebar__notice-text">
+          Les demandes de stations de calcul haute performance (HPC) nécessitent une approbation de
+          niveau 3.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Product Canvas -->
+    <div class="product-canvas">
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <span class="material-symbols-outlined search-bar__icon">search</span>
+        <input
+          class="search-bar__input"
+          placeholder="RECHERCHER PAR NOM OU NUMÉRO DE SÉRIE..."
+          type="text"
+        />
+      </div>
+
+      <!-- Bento Grid of Inventory -->
+      <div class="inventory-grid">
+        <!-- Item 1 -->
+        <div class="inventory-card">
+          <div>
+            <div class="inventory-card__header">
+              <span class="badge badge--available">Disponible</span>
+              <span class="inventory-card__id">ID: PR-9920</span>
+            </div>
+            <div class="inventory-card__image">
+              <div class="inventory-card__image-bg"></div>
+              <span class="material-symbols-outlined inventory-card__icon">laptop_mac</span>
+            </div>
+            <h4 class="inventory-card__name">MacBook Pro 16" M3 Max</h4>
+            <div class="inventory-card__specs">
+              <div class="spec">
+                <p class="spec__label">Processeur</p>
+                <p class="spec__value">14-Core CPU</p>
+              </div>
+              <div class="spec">
+                <p class="spec__label">Mémoire</p>
+                <p class="spec__value">64GB RAM</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn--primary">Réserver l'unité</button>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="inventory-card">
+          <div>
+            <div class="inventory-card__header">
+              <span class="badge badge--unavailable">En Location</span>
+              <span class="inventory-card__id">ID: WS-4402</span>
+            </div>
+            <div class="inventory-card__image">
+              <div class="inventory-card__image-bg"></div>
+              <span class="material-symbols-outlined inventory-card__icon">terminal</span>
+            </div>
+            <h4 class="inventory-card__name">Dell Precision 7960 Tower</h4>
+            <div class="inventory-card__specs">
+              <div class="spec">
+                <p class="spec__label">GPU</p>
+                <p class="spec__value">RTX A6000 48GB</p>
+              </div>
+              <div class="spec">
+                <p class="spec__label">Stockage</p>
+                <p class="spec__value">4TB NVMe RAID</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn--disabled" disabled>Indisponible</button>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="inventory-card">
+          <div>
+            <div class="inventory-card__header">
+              <span class="badge badge--available">Disponible</span>
+              <span class="inventory-card__id">ID: MN-1022</span>
+            </div>
+            <div class="inventory-card__image">
+              <div class="inventory-card__image-bg"></div>
+              <span class="material-symbols-outlined inventory-card__icon">monitor</span>
+            </div>
+            <h4 class="inventory-card__name">Eizo ColorEdge 31" 4K</h4>
+            <div class="inventory-card__specs">
+              <div class="spec">
+                <p class="spec__label">Résolution</p>
+                <p class="spec__value">4096 x 2160</p>
+              </div>
+              <div class="spec">
+                <p class="spec__label">Contraste</p>
+                <p class="spec__value">1500:1 True Black</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn--primary">Réserver l'unité</button>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="inventory-card">
+          <div>
+            <div class="inventory-card__header">
+              <span class="badge badge--available">Disponible</span>
+              <span class="inventory-card__id">ID: TB-8833</span>
+            </div>
+            <div class="inventory-card__image">
+              <div class="inventory-card__image-bg"></div>
+              <span class="material-symbols-outlined inventory-card__icon">tablet_mac</span>
+            </div>
+            <h4 class="inventory-card__name">iPad Pro 12.9" Cellular</h4>
+            <div class="inventory-card__specs">
+              <div class="spec">
+                <p class="spec__label">Écran</p>
+                <p class="spec__value">Liquid Retina XDR</p>
+              </div>
+              <div class="spec">
+                <p class="spec__label">Capacité</p>
+                <p class="spec__value">1TB Silver</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn--primary">Réserver l'unité</button>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <p class="pagination__info">AFFICHAGE 1-4 DE 128 UNITÉS</p>
+        <div class="pagination__controls">
+          <button class="pagination__btn">01</button>
+          <button class="pagination__btn">02</button>
+          <button class="pagination__btn">03</button>
+          <span class="pagination__ellipsis">...</span>
+          <button class="pagination__btn">32</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer Component -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <p class="footer__copy">© 2024 SYSTEM_CORE IT Rental</p>
+    </div>
+    <nav class="footer__nav">
+      <a class="footer__link" href="#">Mentions Légales</a>
+      <a class="footer__link" href="#">Politique de Confidentialité</a>
+      <a class="footer__link footer__link--underlined" href="#">Support Technique</a>
+    </nav>
+  </div>
+</footer>

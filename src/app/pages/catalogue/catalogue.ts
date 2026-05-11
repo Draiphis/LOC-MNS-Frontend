@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: './catalogue.html',
   styleUrl: './catalogue.css',
 })
-export class Catalogue {}
+export class Catalogue {
+  drawerOpen = false;
+
+  toggleDrawer(): void {
+    this.drawerOpen = !this.drawerOpen;
+  }
+}
