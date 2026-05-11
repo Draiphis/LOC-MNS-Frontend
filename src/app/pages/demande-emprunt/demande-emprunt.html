@@ -1,0 +1,189 @@
+<!-- Header -->
+<header class="app-header">
+  <div class="app-header__inner">
+    <div class="app-header__left">
+      <button class="icon-btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <h1 class="app-header__title">Equipment Rental</h1>
+    </div>
+    <div class="app-header__right">
+      <nav class="app-header__nav">
+        <a class="app-header__nav-link app-header__nav-link--active" href="#">Catalog</a>
+        <a class="app-header__nav-link" href="#">Requests</a>
+        <a class="app-header__nav-link" href="#">Inventory</a>
+      </nav>
+      <div class="app-header__avatar">
+        <img
+          alt="User Profile"
+          class="app-header__avatar-img"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoQ44ljD-vF80-q_VuEY-OxEmbjZQ5rdq8RNzTKJ6SXMGKtV6w_H8k42oB3Ewumqpi3cZHGbS7yzZKPo1J77czEI-sLkKl-dqhxBZA8a959hnM4zMFFCfzonvHoM0J7UaDIsKYzqCkcIS92wZTZyw1N561Z_F68m0KNRa2Q4fBkLyQEHjJABLZ4QLGlgGCOMkLtq7_kKfVuBWrM9xenH_Gs4iN-AQCsE2MvWD7L9GVBLqpccEf72d-vkKPdtoOVM5Q941D-mrlQ58"
+        />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main-content">
+  <div class="layout-grid">
+    <!-- Left Section: Form -->
+    <section class="form-section">
+      <div class="form-section__heading">
+        <h2 class="form-section__title">Valider votre demande</h2>
+        <p class="form-section__subtitle">
+          Veuillez vérifier les détails de l'équipement et fournir le contexte d'utilisation pour
+          finaliser le processus de réservation.
+        </p>
+      </div>
+
+      <div class="form-card">
+        <div class="form-fields">
+          <!-- Quantity -->
+          <div class="field-group">
+            <label class="field-label">Quantity</label>
+            <div class="input-wrapper">
+              <span class="material-symbols-outlined input-icon">inventory_2</span>
+              <input class="field-input" min="1" type="number" value="1" />
+            </div>
+          </div>
+
+          <!-- Dates -->
+          <div class="date-row">
+            <div class="field-group">
+              <label class="field-label">Date de début</label>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">calendar_today</span>
+                <input class="field-input" type="date" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Date de fin</label>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">calendar_today</span>
+                <input class="field-input" type="date" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Justification -->
+          <div class="field-group">
+            <label class="field-label">Justification ou précisions sur l'utilisation</label>
+            <textarea
+              class="field-textarea"
+              placeholder="Indiquez le contexte du projet, les logiciels spécifiques nécessaires, ou toute information utile pour l'approbation..."
+              rows="5"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Info Notice -->
+        <div class="info-notice">
+          <span class="material-symbols-outlined info-notice__icon">info</span>
+          <div>
+            <p class="info-notice__title">Approval Required</p>
+            <p class="info-notice__text">
+              This request will be sent to the IT Department for validation. You will receive an
+              email notification once it's approved.
+            </p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn-submit">
+          Confirmer la demande
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Right Aside: Asset Summary -->
+    <aside class="asset-aside">
+      <div class="asset-card">
+        <div class="asset-card__image-wrapper">
+          <img
+            alt="MacBook Pro"
+            class="asset-card__image"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXffjQLLbuFk7hPdoEu84dih4AkuibfoycTVL-mRNZ79UuU_0RsXtrWPlAts80dvLAcpyKXTZ0F5SIk8KzbcVM1YWIUJk4AsPGYClQqbjCIBPh2EykNajWae4SvKKLtayN3TxvpgKyCHiE2r_v0HPlhGNDOO_9agV1Dzg_9n2DbBkRg4BrDBosiLpifHVTza5BkcE-eziBNSZn_f54yxVlMtttaQUgM1xeY0A-mW86d73v07V1NSPMl_HeeBTaFiEoutKtLlgIvPU"
+          />
+          <div class="asset-card__badge-wrapper">
+            <span class="asset-badge">Available</span>
+          </div>
+        </div>
+
+        <div class="asset-card__body">
+          <div>
+            <p class="asset-card__label">Selected Asset</p>
+            <h3 class="asset-card__name">MacBook Pro 16" M2 Max</h3>
+            <p class="asset-card__desc">
+              32GB RAM, 1TB SSD, Space Gray. Optimized for high-performance creative workflows and
+              software development.
+            </p>
+          </div>
+
+          <div class="asset-details">
+            <div class="asset-detail-row">
+              <div class="asset-detail-row__left">
+                <span class="material-symbols-outlined asset-detail-icon">qr_code_2</span>
+                <span class="asset-detail-row__label">Asset ID</span>
+              </div>
+              <span class="asset-detail-row__value asset-detail-row__value--mono"
+                >MBP-2023-0842</span
+              >
+            </div>
+            <div class="asset-detail-row">
+              <div class="asset-detail-row__left">
+                <span class="material-symbols-outlined asset-detail-icon">location_on</span>
+                <span class="asset-detail-row__label">Pickup Location</span>
+              </div>
+              <span class="asset-detail-row__value">Tech Hub - Level 4</span>
+            </div>
+            <div class="asset-detail-row">
+              <div class="asset-detail-row__left">
+                <span class="material-symbols-outlined asset-detail-icon">verified_user</span>
+                <span class="asset-detail-row__label">Condition</span>
+              </div>
+              <span class="asset-detail-row__value asset-detail-row__value--primary"
+                >Excellent</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insurance Block -->
+      <div class="insurance-block">
+        <div class="insurance-block__left">
+          <div class="insurance-block__icon-wrap">
+            <span class="material-symbols-outlined insurance-icon">shield</span>
+          </div>
+          <div>
+            <p class="insurance-block__label">Equipment Insurance</p>
+            <p class="insurance-block__value">Standard Protection Included</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined insurance-block__help">help_outline</span>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-nav">
+  <div class="mobile-nav__item mobile-nav__item--active">
+    <span class="material-symbols-outlined">shopping_bag</span>
+    <span class="mobile-nav__label">Catalog</span>
+  </div>
+  <div class="mobile-nav__item">
+    <span class="material-symbols-outlined">pending_actions</span>
+    <span class="mobile-nav__label">Requests</span>
+  </div>
+  <div class="mobile-nav__item">
+    <span class="material-symbols-outlined">devices</span>
+    <span class="mobile-nav__label">Inventory</span>
+  </div>
+  <div class="mobile-nav__item">
+    <span class="material-symbols-outlined">person</span>
+    <span class="mobile-nav__label">Account</span>
+  </div>
+</nav>
