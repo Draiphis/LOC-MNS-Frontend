@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-connexion',
+  standalone: true,
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './connexion.html',
   styleUrl: './connexion.css',
@@ -16,7 +17,7 @@ export class Connexion {
 
   formulaire = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    motDePasse: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   onConnexion() {
