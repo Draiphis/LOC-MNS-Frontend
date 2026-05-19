@@ -43,7 +43,7 @@
     </div>
 
     <!-- LOGIN FORM -->
-    <div class="form-panel">
+    <div class="form-panel" [formGroup]="formulaire" (ngSubmit)="onConnexion()">
       <div class="form-wrapper">
         <div class="form-header">
           <span class="subtitle"> Authentification Requise </span>
@@ -60,6 +60,12 @@
               <span class="material-symbols-outlined"> alternate_email </span>
 
               <input type="email" placeholder="admin@systemcore.tech" />
+
+              @if (formulaire.get('email')?.hasError('email')) {
+                <span>Doit être une adresse mail</span>
+              } @else {
+                <span>Le champs est obligatoire</span>
+              }
             </div>
           </div>
 
@@ -71,6 +77,8 @@
               <span class="material-symbols-outlined"> lock </span>
 
               <input type="password" placeholder="••••••••••••" />
+              @if (formulaire.get('motDePasse')?.hasError('required')) {}
+              <span>Le champs est obligatoire</span>
 
               <button type="button" class="visibility-button">
                 <span class="material-symbols-outlined"> visibility </span>
