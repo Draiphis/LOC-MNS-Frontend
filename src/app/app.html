@@ -2,9 +2,12 @@
 <header class="top-app-bar">
   <div class="top-app-bar__inner">
     <div class="top-app-bar__left">
-      <button class="icon-btn" (click)="toggleDrawer()">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
+      @if (authService.jwtInfo() != null) {
+        <button class="icon-btn" (click)="toggleDrawer()">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      }
+
       <h1 class="top-app-bar__title">MNS Loc</h1>
     </div>
     <div class="top-app-bar__right">
@@ -39,7 +42,7 @@
         <span class="material-symbols-outlined">event_available</span>
         <span>Reservations</span>
       </a>
-      <a class="drawer__link" href="#">
+      <a class="drawer__link" [routerLink]="['/connexion']" (click)="authService.deconnexion()">
         <span class="material-symbols-outlined">settings</span>
         <span>Deconnexion</span>
       </a>

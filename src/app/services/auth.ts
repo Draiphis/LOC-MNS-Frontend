@@ -2,11 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
+type JwtInfo = { sub: string; role: string };
+
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  readonly connecte = signal(false);
+  readonly jwtInfo = signal<JwtInfo | null>(null);
   httpClient = inject(HttpClient);
 
   connexion(credentials: { email: string; password: string }) {
@@ -17,10 +19,19 @@ export class Auth {
       .pipe(
         tap((jwt) => {
           localStorage.setItem('jwt', jwt);
-          this.connecte.set(true);
+
+          const jwtParts = jwt.split('.');
+          const bodyBase64 = jwtParts[1];
+          const bodyJson = atob(bodyBase64);
+          const body = JSON.parse(bodyJson);
+          console.log(body);
+
+          this.jwtInfo.set(body);
         }),
       );
   }
 
-  deconnexion() {}
+  deconnexion() {
+    this.jwtInfo.set(null);
+  }
 }
