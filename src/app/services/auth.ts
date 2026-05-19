@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
-type JwtInfo = { sub: string; role: string };
+type JwtInfo = { sub: string; roles: string };
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,10 @@ type JwtInfo = { sub: string; role: string };
 export class Auth {
   readonly jwtInfo = signal<JwtInfo | null>(null);
   httpClient = inject(HttpClient);
+
+  constructor() {
+    this.decodeJwt();
+  }
 
   connexion(credentials: { email: string; password: string }) {
     return this.httpClient
@@ -20,18 +24,26 @@ export class Auth {
         tap((jwt) => {
           localStorage.setItem('jwt', jwt);
 
-          const jwtParts = jwt.split('.');
-          const bodyBase64 = jwtParts[1];
-          const bodyJson = atob(bodyBase64);
-          const body = JSON.parse(bodyJson);
-          console.log(body);
-
-          this.jwtInfo.set(body);
+          this.decodeJwt();
         }),
       );
   }
 
   deconnexion() {
     this.jwtInfo.set(null);
+  }
+
+  decodeJwt() {
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      const jwtParts = jwt.split('.');
+      const bodyBase64 = jwtParts[1];
+      const bodyJson = atob(bodyBase64);
+      const body = JSON.parse(bodyJson);
+      console.log(body);
+
+      this.jwtInfo.set(body);
+    }
   }
 }
