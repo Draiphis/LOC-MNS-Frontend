@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-connexion',
@@ -23,18 +21,19 @@ export class Connexion {
 
   onConnexion() {
     if (this.formulaire.valid) {
-      this.httpClient.post('http://localhost:8080/connexion', this.formulaire.value, {
-        responseType: 'text',
-      })
-      .subscribe({
-        next: (jwt)=>{
-          localStorage.setItem('jwt', jwt);
-          this.notification.open('Connexion réussie, 'valid')
-          }, error : (err)=> {
-            this.notification.open('Mauvais login/mot de passe', 'error')
-          }
-        }
-      });
+      this.httpClient
+        .post('http://localhost:8080/connexion', this.formulaire.value, {
+          responseType: 'text',
+        })
+        .subscribe({
+          next: (jwt) => {
+            localStorage.setItem('jwt', jwt);
+            alert('Connexion Réussie');
+          },
+          error: (err) => {
+            alert('Mauvais login/mot de passe');
+          },
+        });
     }
   }
 }
