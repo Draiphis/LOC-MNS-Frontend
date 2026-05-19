@@ -1,1 +1,50 @@
+<!-- TopAppBar Component -->
+<header class="top-app-bar">
+  <div class="top-app-bar__inner">
+    <div class="top-app-bar__left">
+      <button class="icon-btn" (click)="toggleDrawer()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <h1 class="top-app-bar__title">MNS Loc</h1>
+    </div>
+    <div class="top-app-bar__right">
+      <button class="icon-btn">
+        <span class="material-symbols-outlined">account_circle</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- NavigationDrawer Overlay -->
+<div
+  class="drawer-overlay"
+  [class.drawer-overlay--visible]="drawerOpen"
+  (click)="toggleDrawer()"
+></div>
+
+<!-- NavigationDrawer Component -->
+<aside class="drawer" [class.drawer--visible]="drawerOpen">
+  <div class="drawer__inner">
+    <h2 class="drawer__title">MNS Loc</h2>
+    <nav class="drawer__nav">
+      <a class="drawer__link drawer__link" [routerLink]="['/catalogue']">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>Catalogue</span>
+      </a>
+      <a class="drawer__link" href="#">
+        <span class="material-symbols-outlined">history_edu</span>
+        <span>Profil</span>
+      </a>
+      <a class="drawer__link" [routerLink]="['/emprunt']">
+        <span class="material-symbols-outlined">event_available</span>
+        <span>Reservations</span>
+      </a>
+      <a class="drawer__link" href="#">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Deconnexion</span>
+      </a>
+    </nav>
+  </div>
+</aside>
+
 <router-outlet />

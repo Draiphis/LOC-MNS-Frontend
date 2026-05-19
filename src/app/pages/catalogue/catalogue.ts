@@ -13,12 +13,6 @@ export class Catalogue {
 
   httpClient = inject(HttpClient);
 
-  drawerOpen = false;
-
-  toggleDrawer(): void {
-    this.drawerOpen = !this.drawerOpen;
-  }
-
   ngOnInit() {
     this.httpClient.get<Modele[]>('http://localhost:8080/modele/list').subscribe((listModeles) => {
       console.log(listModeles);
