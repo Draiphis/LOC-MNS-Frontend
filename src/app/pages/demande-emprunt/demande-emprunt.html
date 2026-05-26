@@ -39,26 +39,16 @@
               </div>
             </div>
           </div>
-
-          <!-- Justification -->
-          <div class="field-group">
-            <label class="field-label">Justification ou précisions sur l'utilisation</label>
-            <textarea
-              class="field-textarea"
-              placeholder="Indiquez le contexte du projet, les logiciels spécifiques nécessaires, ou toute information utile pour l'approbation..."
-              rows="5"
-            ></textarea>
-          </div>
         </div>
 
         <!-- Info Notice -->
         <div class="info-notice">
           <span class="material-symbols-outlined info-notice__icon">info</span>
           <div>
-            <p class="info-notice__title">Approval Required</p>
+            <p class="info-notice__title">Approbation Requise</p>
             <p class="info-notice__text">
-              This request will be sent to the IT Department for validation. You will receive an
-              email notification once it's approved.
+              Votre demande va être envoyé à notre service de gestion pour validation. Les délais
+              sont compris entre 1 et 3 jours ouvrés.
             </p>
           </div>
         </div>
@@ -76,9 +66,9 @@
       <div class="asset-card">
         <div class="asset-card__image-wrapper">
           <img
-            alt="MacBook Pro"
+            [src]="'assets/images/modeles/' + modele()?.image + '.webp'"
+            [alt]="modele()?.nom"
             class="asset-card__image"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXffjQLLbuFk7hPdoEu84dih4AkuibfoycTVL-mRNZ79UuU_0RsXtrWPlAts80dvLAcpyKXTZ0F5SIk8KzbcVM1YWIUJk4AsPGYClQqbjCIBPh2EykNajWae4SvKKLtayN3TxvpgKyCHiE2r_v0HPlhGNDOO_9agV1Dzg_9n2DbBkRg4BrDBosiLpifHVTza5BkcE-eziBNSZn_f54yxVlMtttaQUgM1xeY0A-mW86d73v07V1NSPMl_HeeBTaFiEoutKtLlgIvPU"
           />
           <div class="asset-card__badge-wrapper">
             <span class="asset-badge">Available</span>
@@ -88,28 +78,16 @@
         <div class="asset-card__body">
           <div>
             <p class="asset-card__label">Selected Asset</p>
-            <h3 class="asset-card__name">MacBook Pro 16" M2 Max</h3>
+            <h3 class="asset-card__name">
+              {{ modele()?.nom }}
+            </h3>
             <p class="asset-card__desc">
-              32GB RAM, 1TB SSD, Space Gray. Optimized for high-performance creative workflows and
-              software development.
+              {{ modele()?.description }}
             </p>
           </div>
 
           <div class="asset-details">
             <div class="asset-detail-row">
-              <div class="asset-detail-row__left">
-                <span class="material-symbols-outlined asset-detail-icon">qr_code_2</span>
-                <span class="asset-detail-row__label">Asset ID</span>
-              </div>
-              <span class="asset-detail-row__value asset-detail-row__value--mono"
-                >MBP-2023-0842</span
-              >
-            </div>
-            <div class="asset-detail-row">
-              <div class="asset-detail-row__left">
-                <span class="material-symbols-outlined asset-detail-icon">location_on</span>
-                <span class="asset-detail-row__label">Pickup Location</span>
-              </div>
               <span class="asset-detail-row__value">Tech Hub - Level 4</span>
             </div>
             <div class="asset-detail-row">
@@ -123,20 +101,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Insurance Block -->
-      <div class="insurance-block">
-        <div class="insurance-block__left">
-          <div class="insurance-block__icon-wrap">
-            <span class="material-symbols-outlined insurance-icon">shield</span>
-          </div>
-          <div>
-            <p class="insurance-block__label">Equipment Insurance</p>
-            <p class="insurance-block__value">Standard Protection Included</p>
-          </div>
-        </div>
-        <span class="material-symbols-outlined insurance-block__help">help_outline</span>
       </div>
     </aside>
   </div>

@@ -15,7 +15,7 @@ export const routes: Routes = [
     canActivate: [utilisateurGuard],
   },
   {
-    path: 'emprunt',
+    path: 'emprunt/:id',
     component: DemandeEmprunt,
   },
 ];
