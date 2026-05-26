@@ -11,7 +11,10 @@ import { RouterModule } from '@angular/router';
 export class Catalogue {
   modeles = signal<Modele[]>([]);
   types = signal<Type[]>([]);
+  marques = signal<Marque[]>([]);
 
+  typeSelectionne = signal('');
+  marqueSelectionnee = signal('');
   estDisponibleImmediatement = signal(false);
 
   httpClient = inject(HttpClient);
@@ -19,6 +22,7 @@ export class Catalogue {
   ngOnInit() {
     this.chargerModeles();
     this.chargerTypes();
+    this.chargerMarques();
     console.log('fin');
   }
 
@@ -29,19 +33,58 @@ export class Catalogue {
     this.chargerModeles();
   }
 
-  chargerModeles() {
-    const url = this.estDisponibleImmediatement()
-      ? 'http://localhost:8080/modele/list-filtrer'
-      : 'http://localhost:8080/modele/list';
+  filtreType(event: Event) {
+    const valeur = (event.target as HTMLSelectElement).value;
 
-    this.httpClient.get<Modele[]>(url).subscribe((listModeles) => {
-      this.modeles.set(listModeles);
+    this.typeSelectionne.set(valeur);
+
+    this.chargerModeles();
+  }
+  filtreMarque(event: Event) {
+    const valeur = (event.target as HTMLSelectElement).value;
+
+    this.marqueSelectionnee.set(valeur);
+
+    this.chargerModeles();
+  }
+
+  chargerModeles() {
+    let url = 'http://localhost:8080/modele/list';
+
+    const params = new URLSearchParams();
+
+    if (this.typeSelectionne()) {
+      params.append('type', this.typeSelectionne());
+    }
+
+    if (this.marqueSelectionnee()) {
+      params.append('marque', this.marqueSelectionnee());
+    }
+
+    if (this.estDisponibleImmediatement()) {
+      params.append('disponible', 'true');
+    }
+
+    const queryString = params.toString();
+
+    if (queryString) {
+      url += '?' + queryString;
+    }
+
+    this.httpClient.get<Modele[]>(url).subscribe((modeles) => {
+      this.modeles.set(modeles);
     });
   }
 
   chargerTypes() {
     this.httpClient.get<Type[]>('http://localhost:8080/type/list').subscribe((listTypes) => {
       this.types.set(listTypes);
+    });
+  }
+
+  chargerMarques() {
+    this.httpClient.get<Marque[]>('http://localhost:8080/marque/list').subscribe((listMarques) => {
+      this.marques.set(listMarques);
     });
   }
 }

@@ -43,7 +43,7 @@
         <div class="filter-group">
           <label class="filter-group__label">Type de matériel</label>
 
-          <select class="filter-group__select">
+          <select class="filter-group__select" (change)="filtreType($event)">
             <option value="">Tous les types</option>
 
             @for (type of types(); track type.id) {
@@ -55,13 +55,13 @@
         </div>
         <div class="filter-group">
           <label class="filter-group__label">Marque</label>
-          <select class="filter-group__select">
-            <option>Toutes les marques</option>
-            <option>Apple</option>
-            <option>Dell</option>
-            <option>Sony</option>
-            <option>Eizo</option>
-            <option>Cisco</option>
+          <select class="filter-group__select" (change)="filtreMarque($event)">
+            <option value="">Toutes les marques</option>
+            @for (marque of marques(); track marque.id) {
+              <option [value]="marque.nom">
+                {{ marque.nom }}
+              </option>
+            }
           </select>
         </div>
       </div>
