@@ -17,27 +17,24 @@
     <aside class="sidebar">
       <div class="sidebar__section">
         <h3 class="sidebar__section-title">Catégories</h3>
+
         <ul class="category-list">
           <li class="category-list__item category-list__item--active">
             <span>TOUT LE MATÉRIEL</span>
-            <span class="category-list__count">128</span>
+            <span class="category-list__count">
+              {{ modeles().length }}
+            </span>
           </li>
-          <li class="category-list__item">
-            <span>STATIONS DE TRAVAIL</span>
-            <span class="category-list__count">42</span>
-          </li>
-          <li class="category-list__item">
-            <span>TERMINAUX MOBILES</span>
-            <span class="category-list__count">36</span>
-          </li>
-          <li class="category-list__item">
-            <span>INFRASTRUCTURE RÉSEAU</span>
-            <span class="category-list__count">15</span>
-          </li>
-          <li class="category-list__item">
-            <span>PÉRIPHÉRIQUES</span>
-            <span class="category-list__count">35</span>
-          </li>
+
+          @for (type of types(); track type.id) {
+            <li class="category-list__item">
+              <span>
+                {{ type.nom.toUpperCase() }}
+              </span>
+
+              <span class="category-list__count"> 10, mais a changer coté back </span>
+            </li>
+          }
         </ul>
       </div>
 
@@ -45,13 +42,15 @@
         <h3 class="sidebar__section-title">Filtres Avancés</h3>
         <div class="filter-group">
           <label class="filter-group__label">Type de matériel</label>
+
           <select class="filter-group__select">
-            <option>Tous les types</option>
-            <option>Laptops</option>
-            <option>Tablets</option>
-            <option>Cameras</option>
-            <option>Monitors</option>
-            <option>Networking</option>
+            <option value="">Tous les types</option>
+
+            @for (type of types(); track type.id) {
+              <option [value]="type.nom">
+                {{ type.nom }}
+              </option>
+            }
           </select>
         </div>
         <div class="filter-group">
@@ -65,22 +64,14 @@
             <option>Cisco</option>
           </select>
         </div>
-        <div class="filter-group">
-          <label class="filter-group__label">Modèle</label>
-          <input class="filter-group__input" placeholder="RECHERCHER MODÈLE..." type="text" />
-        </div>
       </div>
 
       <div class="sidebar__section">
         <h3 class="sidebar__section-title">État de Disponibilité</h3>
         <div class="checkbox-group">
           <label class="checkbox-group__item">
-            <input type="checkbox" />
+            <input type="checkbox" (change)="filtreDisponibleMaintenant($event)" />
             <span>Disponible Immédiatement</span>
-          </label>
-          <label class="checkbox-group__item">
-            <input type="checkbox" />
-            <span>En cours de révision</span>
           </label>
         </div>
       </div>
