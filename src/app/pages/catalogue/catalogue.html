@@ -122,9 +122,11 @@
               </div>
 
               <div class="inventory-card__image">
-                <div class="inventory-card__image-bg"></div>
-
-                <span class="material-symbols-outlined inventory-card__icon"> laptop_mac </span>
+                <img
+                  [src]="'/assets/images/modeles/' + modele.image + '.webp'"
+                  [alt]="modele.nom"
+                  class="inventory-card__img"
+                />
               </div>
 
               <h4 class="inventory-card__name">
@@ -148,18 +150,6 @@
             }
           </div>
         }
-      </div>
-
-      <!-- Pagination -->
-      <div class="pagination">
-        <p class="pagination__info">AFFICHAGE 1-4 DE 128 UNITÉS</p>
-        <div class="pagination__controls">
-          <button class="pagination__btn">01</button>
-          <button class="pagination__btn">02</button>
-          <button class="pagination__btn">03</button>
-          <span class="pagination__ellipsis">...</span>
-          <button class="pagination__btn">32</button>
-        </div>
       </div>
     </div>
   </section>
