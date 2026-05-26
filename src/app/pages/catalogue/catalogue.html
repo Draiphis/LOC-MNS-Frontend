@@ -141,9 +141,11 @@
                   </p>
                 </div>
               </div>
+
+              <p class="inventory-card__stock">Stock : {{ modele.stockDisponible }}</p>
             </div>
 
-            @if (modele) {
+            @if (modele.estDisponible && modele.stockDisponible > 0) {
               <button class="btn btn--primary" [routerLink]="['/emprunt', modele.id]">
                 Réserver l'unité
               </button>
