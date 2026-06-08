@@ -77,7 +77,8 @@ export class Catalogue {
   }
 
   chargerTypes() {
-    this.httpClient.get<Type[]>('http://localhost:8080/type/list').subscribe((listTypes) => {
+    this.httpClient.get<Type[]>('http://localhost:8080/type/stock').subscribe((listTypes) => {
+      console.log('Types reçus :', listTypes);
       this.types.set(listTypes);
     });
   }
