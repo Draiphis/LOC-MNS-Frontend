@@ -1,7 +1,7 @@
 <!-- Main -->
 <main class="main-content">
   <div class="layout-grid">
-    <!-- Left Section: Form -->
+    <!-- LEFT -->
     <section class="form-section">
       <div class="form-section__heading">
         <h2 class="form-section__title">Valider votre demande</h2>
@@ -13,91 +13,89 @@
 
       <div class="form-card">
         <div class="form-fields">
-          <!-- Quantity -->
-          <div class="field-group">
-            <label class="field-label">Quantity</label>
-            <div class="input-wrapper">
-              <span class="material-symbols-outlined input-icon">inventory_2</span>
-              <input class="field-input" min="1" type="number" value="1" />
-            </div>
-          </div>
-
-          <!-- Dates -->
+          <!-- DATE DEBUT -->
           <div class="date-row">
             <div class="field-group">
               <label class="field-label">Date de début</label>
+
               <div class="input-wrapper">
                 <span class="material-symbols-outlined input-icon">calendar_today</span>
-                <input class="field-input" type="date" />
+
+                <input class="field-input" type="date" [(ngModel)]="dateDebut" />
               </div>
             </div>
+
+            <!-- DATE FIN -->
             <div class="field-group">
               <label class="field-label">Date de fin</label>
+
               <div class="input-wrapper">
                 <span class="material-symbols-outlined input-icon">calendar_today</span>
-                <input class="field-input" type="date" />
+
+                <input class="field-input" type="date" [(ngModel)]="dateFin" />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Info Notice -->
+        <!-- INFO -->
         <div class="info-notice">
           <span class="material-symbols-outlined info-notice__icon">info</span>
+
           <div>
             <p class="info-notice__title">Approbation Requise</p>
             <p class="info-notice__text">
-              Votre demande va être envoyé à notre service de gestion pour validation. Les délais
+              Votre demande va être envoyée à notre service de gestion pour validation. Les délais
               sont compris entre 1 et 3 jours ouvrés.
             </p>
           </div>
         </div>
 
-        <!-- Submit Button -->
-        <button class="btn-submit">
+        <!-- BUTTON -->
+        <button class="btn-submit" (click)="reserver()">
           Confirmer la demande
+
           <span class="material-symbols-outlined">send</span>
         </button>
       </div>
     </section>
 
-    <!-- Right Aside: Asset Summary -->
+    <!-- RIGHT -->
     <aside class="asset-aside">
       <div class="asset-card">
         <div class="asset-card__image-wrapper">
-          <img
-            [src]="'assets/images/modeles/' + modele()?.image + '.webp'"
-            [alt]="modele()?.nom"
-            class="asset-card__image"
-          />
+          <img [src]="getImage()" [alt]="modele()?.nom" class="asset-card__image" />
+
           <div class="asset-card__badge-wrapper">
             <span class="asset-badge">Available</span>
           </div>
         </div>
 
         <div class="asset-card__body">
-          <div>
-            <p class="asset-card__label">Selected Asset</p>
-            <h3 class="asset-card__name">
-              {{ modele()?.nom }}
-            </h3>
-            <p class="asset-card__desc">
-              {{ modele()?.description }}
-            </p>
-          </div>
+          <p class="asset-card__label">Selected Asset</p>
+
+          <h3 class="asset-card__name">
+            {{ modele()?.nom }}
+          </h3>
+
+          <p class="asset-card__desc">
+            {{ modele()?.description }}
+          </p>
 
           <div class="asset-details">
             <div class="asset-detail-row">
               <span class="asset-detail-row__value">Tech Hub - Level 4</span>
             </div>
+
             <div class="asset-detail-row">
               <div class="asset-detail-row__left">
                 <span class="material-symbols-outlined asset-detail-icon">verified_user</span>
                 <span class="asset-detail-row__label">Condition</span>
               </div>
-              <span class="asset-detail-row__value asset-detail-row__value--primary"
-                >Excellent</span
-              >
+
+              <span class="asset-detail-row__value asset-detail-row__value--primary">
+                Excellent
+              </span>
             </div>
           </div>
         </div>
@@ -106,20 +104,23 @@
   </div>
 </main>
 
-<!-- Mobile Bottom Navigation -->
+<!-- MOBILE NAV -->
 <nav class="mobile-nav">
   <div class="mobile-nav__item mobile-nav__item--active">
     <span class="material-symbols-outlined">shopping_bag</span>
     <span class="mobile-nav__label">Catalog</span>
   </div>
+
   <div class="mobile-nav__item">
     <span class="material-symbols-outlined">pending_actions</span>
     <span class="mobile-nav__label">Requests</span>
   </div>
+
   <div class="mobile-nav__item">
     <span class="material-symbols-outlined">devices</span>
     <span class="mobile-nav__label">Inventory</span>
   </div>
+
   <div class="mobile-nav__item">
     <span class="material-symbols-outlined">person</span>
     <span class="mobile-nav__label">Account</span>
