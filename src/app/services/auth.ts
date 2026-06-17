@@ -4,7 +4,7 @@ import { tap } from 'rxjs';
 
 type JwtInfo = {
   sub: string;
-  roles: string;
+  roles: string[];
 };
 
 @Injectable({
@@ -51,9 +51,7 @@ export class Auth {
 
     const parts = jwt.split('.');
 
-    // 👉 sécurité structure JWT
     if (parts.length !== 3) {
-      console.warn('JWT invalide');
       this.jwtInfo.set(null);
       return;
     }
@@ -61,12 +59,20 @@ export class Auth {
     try {
       const payload = JSON.parse(atob(parts[1]));
 
+      let roles: string[] = [];
+
+      if (Array.isArray(payload.roles)) {
+        roles = payload.roles;
+      } else if (typeof payload.roles === 'string') {
+        roles = payload.roles.split(',').map((r: string) => r.trim());
+      } else if (payload.role) {
+        roles = [payload.role];
+      }
+
       this.jwtInfo.set({
         sub: payload.sub,
-        roles: payload.roles,
+        roles,
       });
-
-      console.log('JWT decoded:', payload);
     } catch (e) {
       console.error('Erreur decode JWT', e);
       this.jwtInfo.set(null);
@@ -79,12 +85,11 @@ export class Auth {
     return this.jwtInfo() !== null;
   }
 
-  getRoles(): string[] {
-    const roles = this.jwtInfo()?.roles;
-    return roles ? roles.split(',').map((r) => r.trim()) : [];
+  hasRole(role: string): boolean {
+    return this.jwtInfo()?.roles.includes(role) ?? false;
   }
 
-  hasRole(role: string): boolean {
-    return this.getRoles().includes(role);
+  isAdmin(): boolean {
+    return this.hasRole('ADMIN');
   }
 }

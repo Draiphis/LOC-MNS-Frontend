@@ -30,7 +30,12 @@ export class Connexion {
         .subscribe({
           next: (jwt) => {
             alert('Connexion Réussie');
-            this.router.navigateByUrl('/catalogue');
+
+            if (this.authService.isAdmin()) {
+              this.router.navigateByUrl('/admin/emprunts');
+            } else {
+              this.router.navigateByUrl('/catalogue');
+            }
           },
           error: (err) => {
             alert('Mauvais login/mot de passe');

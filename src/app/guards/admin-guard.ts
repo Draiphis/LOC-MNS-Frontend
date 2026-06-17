@@ -7,19 +7,13 @@ export const adminGuard: CanActivateFn = () => {
   const auth = inject(Auth);
   const router = inject(Router);
 
-  const jwt = auth.jwtInfo();
-
-  if (!jwt) {
-    router.navigate(['/connexion']);
-    return false;
+  if (!auth.isLogged()) {
+    return router.parseUrl('/connexion');
   }
 
-  const roles = jwt.roles?.split(',').map((r) => r.trim());
-
-  if (roles.includes('ADMIN')) {
+  if (auth.isAdmin()) {
     return true;
   }
 
-  router.navigate(['/unauthorized']);
-  return false;
+  return router.parseUrl('/unauthorized');
 };
