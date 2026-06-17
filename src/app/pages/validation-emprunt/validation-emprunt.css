@@ -1,0 +1,164 @@
+:host {
+  font-family: 'Inter', sans-serif;
+  display: block;
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+/* ---------- Layout ---------- */
+.admin {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.admin__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.admin__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--red-primary);
+}
+
+.admin__title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.admin__meta {
+  text-align: right;
+}
+
+.admin__meta-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+
+.admin__meta-value {
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+/* ---------- Panel ---------- */
+.admin__panel {
+  background: #fff;
+  border: 1px solid var(--outline-variant);
+}
+
+/* ---------- Table ---------- */
+.admin__table-wrapper {
+  overflow-x: auto;
+}
+
+.admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.admin__table thead {
+  background: var(--surface-container-low);
+}
+
+.admin__table th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.admin__table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--surface-container);
+  font-size: 0.85rem;
+}
+
+/* ---------- Cells ---------- */
+.admin__cell-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin__cell-sub {
+  font-size: 11px;
+  color: #a8a29e;
+}
+
+.mono {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ---------- Badge ---------- */
+.badge {
+  font-size: 10px;
+  font-weight: 900;
+  padding: 0.25rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--outline-variant);
+}
+
+.badge--pending {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.badge--accepted {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.badge--rejected {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* ---------- Actions ---------- */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn--accept {
+  background: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.btn--accept:hover {
+  opacity: 0.85;
+}
+
+.btn--reject {
+  background: var(--error-container);
+  color: var(--on-error-container);
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

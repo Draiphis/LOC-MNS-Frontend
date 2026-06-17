@@ -1,0 +1,87 @@
+<main class="admin">
+  <!-- Header -->
+  <section class="admin__header">
+    <div>
+      <p class="admin__label">ADMINISTRATION</p>
+      <h1 class="admin__title">Validation des emprunts</h1>
+    </div>
+
+    <div class="admin__meta">
+      <p class="admin__meta-label">SYSTÈME</p>
+      <p class="admin__meta-value">EMPRUNT.VALIDATION</p>
+    </div>
+  </section>
+
+  <!-- Table -->
+  <section class="admin__panel">
+    <div class="admin__table-wrapper">
+      <table class="admin__table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Matériel</th>
+            <th>Demandeur</th>
+            <th>Début</th>
+            <th>Retour prévu</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (emprunt of emprunts(); track emprunt.id) {
+            <tr>
+              <td class="mono">#{{ emprunt.id }}</td>
+
+              <td>
+                <div class="admin__cell-title">
+                  {{ emprunt.materielNom }}
+                </div>
+                <div class="admin__cell-sub">ID matériel: {{ emprunt.materielId }}</div>
+              </td>
+
+              <td>{{ emprunt.demandeurPrenom }} {{ emprunt.demandeurNom }}</td>
+
+              <td class="mono">
+                {{ emprunt.dateDebutEmprunt }}
+              </td>
+
+              <td class="mono">
+                {{ emprunt.dateRetourEmpruntPrevisionelle }}
+              </td>
+
+              <td>
+                <span
+                  class="badge"
+                  [class.badge--pending]="emprunt.statut === 'EN_ATTENTE'"
+                  [class.badge--accepted]="emprunt.statut === 'ACCEPTE'"
+                  [class.badge--rejected]="emprunt.statut === 'REFUSE'"
+                >
+                  {{ emprunt.statut }}
+                </span>
+              </td>
+
+              <td class="actions">
+                <button
+                  class="btn btn--accept"
+                  (click)="valider(emprunt.id)"
+                  [disabled]="emprunt.statut !== 'EN_ATTENTE'"
+                >
+                  Valider
+                </button>
+
+                <button
+                  class="btn btn--reject"
+                  (click)="refuser(emprunt.id)"
+                  [disabled]="emprunt.statut !== 'EN_ATTENTE'"
+                >
+                  Refuser
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
