@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-validation-emprunt',
@@ -20,19 +21,19 @@ export class ValidationEmprunt {
 
   chargerEmprunts() {
     this.http
-      .get<any[]>('http://localhost:8080/emprunt/list')
+      .get<any[]>(`${environment.apiUrl}/emprunt/list`)
       .subscribe((data) => this.emprunts.set(data));
   }
 
   valider(id: number) {
     this.http
-      .put(`http://localhost:8080/emprunt/${id}/valider`, {})
+      .put(`${environment.apiUrl}/emprunt/${id}/valider`, {})
       .subscribe(() => this.chargerEmprunts());
   }
 
   refuser(id: number) {
     this.http
-      .put(`http://localhost:8080/emprunt/${id}/refuser`, {})
+      .put(`${environment.apiUrl}/emprunt/${id}/refuser`, {})
       .subscribe(() => this.chargerEmprunts());
     console.log('la demande à été rejeter');
   }

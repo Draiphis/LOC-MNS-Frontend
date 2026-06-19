@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-catalogue',
@@ -49,7 +50,7 @@ export class Catalogue {
   }
 
   chargerModeles() {
-    let url = 'http://localhost:8080/modele/list';
+    let url = `${environment.apiUrl}/modele/list`;
 
     const params = new URLSearchParams();
 
@@ -77,14 +78,14 @@ export class Catalogue {
   }
 
   chargerTypes() {
-    this.httpClient.get<Type[]>('http://localhost:8080/type/stock').subscribe((listTypes) => {
+    this.httpClient.get<Type[]>(`${environment.apiUrl}/type/stock`).subscribe((listTypes) => {
       console.log('Types reçus :', listTypes);
       this.types.set(listTypes);
     });
   }
 
   chargerMarques() {
-    this.httpClient.get<Marque[]>('http://localhost:8080/marque/list').subscribe((listMarques) => {
+    this.httpClient.get<Marque[]>(`${environment.apiUrl}/marque/list`).subscribe((listMarques) => {
       this.marques.set(listMarques);
     });
   }

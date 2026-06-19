@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-demande-emprunt',
@@ -21,7 +22,7 @@ export class DemandeEmprunt {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.httpClient.get<Modele>('http://localhost:8080/modele/' + id).subscribe((data) => {
+    this.httpClient.get<Modele>(`${environment.apiUrl}/modele/` + id).subscribe((data) => {
       this.modele.set(data);
     });
   }
@@ -39,7 +40,7 @@ export class DemandeEmprunt {
       dateRetourEmpruntPrevisionelle: this.dateFin,
     };
 
-    this.httpClient.post('http://localhost:8080/emprunt/create', emprunt).subscribe({
+    this.httpClient.post(`${environment.apiUrl}/emprunt/create`, emprunt).subscribe({
       next: () => {
         alert('Demande envoyée avec succès');
       },

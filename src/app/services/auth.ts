@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 type JwtInfo = {
   sub: string;
@@ -25,7 +26,7 @@ export class Auth {
 
   connexion(credentials: { email: string; password: string }) {
     return this.httpClient
-      .post('http://localhost:8080/connexion', credentials, {
+      .post(`${environment.apiUrl}/connexion`, credentials, {
         responseType: 'text',
       })
       .pipe(
