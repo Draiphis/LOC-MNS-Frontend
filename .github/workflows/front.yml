@@ -22,4 +22,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push docker image
-        run: docker push draifis/loc-mns-front
+        run: docker push draifis/loc-mns-front:latest
