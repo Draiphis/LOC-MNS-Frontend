@@ -15,16 +15,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t loc-mns-front .
 
-      - name: Stop old container
-        run: docker stop loc-mns-front || true
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: draifis
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Remove old container
-        run: docker rm loc-mns-front || true
-
-      - name: Run container
-        run: |
-          docker run -d \
-            --name loc-mns-front \
-            -p 80:80 \
-            --restart unless-stopped \
-            loc-mns-front
+      - name: Push docker image
+        run: docker push draifis/loc-mns-front
