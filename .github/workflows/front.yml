@@ -1,13 +1,30 @@
-- name: Build Docker image
-  run: docker build -t loc-mns-front .
+name: Deploy Frontend
 
-- name: Deploy frontend
-  run: |
-    docker stop loc-mns-front || true
-    docker rm loc-mns-front || true
+on:
+  push:
+    branches: ['main']
 
-    docker run -d \
-      --name loc-mns-front \
-      -p 80:80 \
-      --restart unless-stopped \
-      loc-mns-front
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t loc-mns-front .
+
+      - name: Stop old container
+        run: docker stop loc-mns-front || true
+
+      - name: Remove old container
+        run: docker rm loc-mns-front || true
+
+      - name: Run container
+        run: |
+          docker run -d \
+            --name loc-mns-front \
+            -p 80:80 \
+            --restart unless-stopped \
+            loc-mns-front
