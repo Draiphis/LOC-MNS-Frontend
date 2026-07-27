@@ -1,59 +1,227 @@
-# LocMns
+# MNS Loc — Front-end
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+Interface web de **MNS Loc**, une application de consultation et de réservation
+de matériel.
 
-## Development server
+L’application propose deux espaces :
 
-To start a local development server, run:
+- un espace utilisateur pour consulter le catalogue, choisir une période et
+  suivre ses réservations ;
+- un espace administrateur pour valider les demandes et créer des utilisateurs.
+
+## Fonctionnalités
+
+### Utilisateur
+
+- connexion sécurisée ;
+- consultation et filtrage du catalogue ;
+- affichage des disponibilités sur un calendrier ;
+- sélection d’une période de réservation ;
+- création d’une demande d’emprunt ;
+- consultation des demandes en attente ou refusées ;
+- consultation des réservations approuvées en cours.
+
+### Administrateur
+
+- consultation de toutes les demandes d’emprunt ;
+- validation ou refus d’une demande ;
+- création d’un compte utilisateur ;
+- contrôle des doublons d’adresse e-mail.
+
+## Technologies
+
+- Angular 21
+- TypeScript 5.9
+- Angular Router
+- Reactive Forms
+- Angular HTTP Client
+- RxJS
+- Tailwind CSS
+- Vitest
+- Nginx pour l’image de production
+
+## Prérequis
+
+- Node.js 20 ou supérieur ;
+- npm 11 ;
+- le back-end MNS Loc démarré pour utiliser toutes les fonctionnalités.
+
+## Installation
+
+Installer les dépendances :
 
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Le fichier `package-lock.json` permet également une installation reproductible :
 
 ```bash
-ng generate component component-name
+npm ci
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Configuration de l’API
+
+Les adresses du back-end se trouvent dans `src/environments/`.
+
+| Contexte | Fichier utilisé | Adresse actuelle |
+|---|---|---|
+| Serveur de développement | `environment.development.ts` | `http://localhost:8080` |
+| Build par défaut | `environment.ts` | API déployée |
+
+Exemple de configuration locale :
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080',
+};
+```
+
+Ne pas ajouter de `/` final à `apiUrl`, car les services ajoutent eux-mêmes le
+chemin de chaque endpoint.
+
+## Démarrage
+
+Lancer le serveur de développement :
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+Puis ouvrir :
 
-To build the project run:
+```text
+http://localhost:4200
+```
+
+Le serveur recharge automatiquement l’application après une modification du
+code.
+
+## Authentification et autorisations
+
+Après une connexion réussie, le JWT retourné par le back-end est conservé dans
+le stockage local du navigateur.
+
+Un intercepteur HTTP ajoute automatiquement l’en-tête suivant aux requêtes :
+
+```text
+Authorization: Bearer <jwt>
+```
+
+Les gardes de navigation séparent les espaces :
+
+- `utilisateurGuard` protège le catalogue et le profil ;
+- `adminGuard` protège les pages d’administration.
+
+Les contrôles front améliorent la navigation, mais les autorisations sensibles
+doivent toujours être vérifiées par le back-end.
+
+## Routes principales
+
+| Route | Accès | Description |
+|---|---|---|
+| `/connexion` | Public | Connexion |
+| `/catalogue` | Utilisateur | Catalogue et filtres |
+| `/emprunt/:id` | Utilisateur | Choix des dates et demande de réservation |
+| `/profil` | Utilisateur | Demandes et réservations personnelles |
+| `/admin/emprunts` | Administrateur | Validation et refus des demandes |
+| `/admin/utilisateurs/nouveau` | Administrateur | Création d’un utilisateur |
+
+## Structure du projet
+
+```text
+src/
+├── app/
+│   ├── guards/          Protection des routes utilisateur et administrateur
+│   ├── intercepteurs/   Gestion centralisée des erreurs HTTP
+│   ├── modeles/         Types TypeScript de l’application
+│   ├── pages/
+│   │   ├── ajout-utilisateur/
+│   │   ├── catalogue/
+│   │   ├── connexion/
+│   │   ├── demande-emprunt/
+│   │   ├── profil/
+│   │   └── validation-emprunt/
+│   ├── services/        Authentification et ajout du JWT
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   └── app.ts
+├── environments/       Adresses de l’API selon l’environnement
+├── main.ts
+└── styles.css
+```
+
+Chaque page possède ses propres fichiers TypeScript, HTML, CSS et, lorsque
+nécessaire, son fichier de test.
+
+## Commandes disponibles
+
+| Commande | Utilité |
+|---|---|
+| `npm start` | Lancer le serveur de développement |
+| `npm run build` | Générer le build optimisé |
+| `npm run watch` | Recompiler en continu en mode développement |
+| `npm test` | Lancer les tests en mode interactif |
+| `npm test -- --watch=false` | Exécuter les tests une seule fois |
+
+## Tests
+
+Exécuter toute la suite une seule fois :
 
 ```bash
-ng build
+npm test -- --watch=false
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Les tests utilisent Vitest et l’environnement de test Angular.
 
-## Running unit tests
+## Build de production
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Générer les fichiers statiques optimisés :
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+Les fichiers statiques à déployer sont produits dans :
 
-For end-to-end (e2e) testing, run:
+```text
+dist/loc-mns/browser/
+```
+
+Avant un déploiement, vérifier que `apiUrl` correspond bien à l’adresse publique
+du back-end.
+
+## Docker
+
+Construire l’image :
 
 ```bash
-ng e2e
+docker build -f dockerfile -t loc-mns-front .
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Lancer le conteneur :
 
-## Additional Resources
+```bash
+docker run --rm -p 4200:80 loc-mns-front
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+L’application est alors accessible sur `http://localhost:4200`.
+
+L’image compile Angular avec Node.js, puis utilise Nginx pour servir les fichiers
+statiques. La configuration Nginx redirige les routes inconnues vers
+`index.html`, ce qui permet au routeur Angular de fonctionner après un
+rafraîchissement de page.
+
+## Dépendance avec le back-end
+
+Le front-end dépend de l’API Spring Boot pour :
+
+- l’authentification ;
+- le catalogue et les disponibilités ;
+- les demandes d’emprunt ;
+- le profil utilisateur ;
+- les opérations d’administration.
+
+En développement local, démarrer le back-end sur le port `8080` avant de tester
+les parcours complets.
