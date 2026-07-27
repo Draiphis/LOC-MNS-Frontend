@@ -1,0 +1,229 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 4rem);
+  background: #f8f9fa;
+  color: #191c1d;
+  font-family: 'Inter', sans-serif;
+}
+
+.profil {
+  width: min(1120px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 3rem 0 5rem;
+}
+
+.profil__entete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #dec0bd;
+}
+
+.profil__label,
+.section__numero,
+.reservation__reference,
+dt {
+  margin: 0;
+  color: #7f1d1d;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.profil__titre {
+  margin: 0.5rem 0;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.profil__email {
+  margin: 0;
+  color: #6b7280;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.profil__catalogue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.2rem;
+  background: #7f1d1d;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.section {
+  margin-top: 3.5rem;
+}
+
+.section__entete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.section__titre {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.section__compteur {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid #dec0bd;
+  font-family: monospace;
+}
+
+.liste {
+  display: grid;
+  gap: 1px;
+  border: 1px solid #dec0bd;
+  background: #dec0bd;
+}
+
+.reservation {
+  min-width: 0;
+  background: #fff;
+}
+
+.reservation--active {
+  border-left: 4px solid #005236;
+}
+
+.reservation__contenu {
+  min-width: 0;
+  padding: 1.5rem;
+}
+
+.reservation__ligne {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.reservation h3 {
+  margin: 0.3rem 0 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.statut {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statut--attente {
+  background: #fff1c2;
+  color: #694f00;
+}
+
+.statut--refuse {
+  background: #ffdad6;
+  color: #93000a;
+}
+
+.statut--approuve {
+  background: #d5f6e8;
+  color: #005236;
+}
+
+.reservation__dates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid #edeeef;
+}
+
+.reservation__dates div {
+  min-width: 0;
+}
+
+dt {
+  color: #8a716f;
+  letter-spacing: 0.08em;
+}
+
+dd {
+  margin: 0.3rem 0 0;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.etat {
+  display: flex;
+  min-height: 9rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  border: 1px dashed #dec0bd;
+  color: #6b7280;
+  text-align: center;
+}
+
+.etat p {
+  margin: 0;
+}
+
+.etat--chargement,
+.etat--erreur {
+  margin-top: 3rem;
+}
+
+.etat--erreur {
+  flex-direction: column;
+  color: #93000a;
+}
+
+.etat button {
+  padding: 0.65rem 1rem;
+  border: 0;
+  background: #7f1d1d;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .profil {
+    width: min(100% - 2rem, 1120px);
+    padding-top: 2rem;
+  }
+
+  .profil__entete {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reservation__ligne {
+    flex-direction: column;
+  }
+
+  .reservation__dates {
+    grid-template-columns: 1fr;
+  }
+}

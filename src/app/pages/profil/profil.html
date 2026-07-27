@@ -1,0 +1,131 @@
+<main class="profil">
+  <section class="profil__entete">
+    <div>
+      <p class="profil__label">ESPACE PERSONNEL</p>
+      <h1 class="profil__titre">Mon profil</h1>
+      <p class="profil__email">{{ authService.jwtInfo()?.sub }}</p>
+    </div>
+
+    <a class="profil__catalogue" [routerLink]="['/catalogue']">
+      <span class="material-symbols-outlined">add</span>
+      Nouvelle réservation
+    </a>
+  </section>
+
+  @if (chargement()) {
+    <div class="etat etat--chargement">
+      <span class="material-symbols-outlined">hourglass_top</span>
+      Chargement de vos réservations…
+    </div>
+  } @else if (erreur()) {
+    <div class="etat etat--erreur">
+      <span class="material-symbols-outlined">error</span>
+      <p>{{ erreur() }}</p>
+      <button type="button" (click)="chargerEmprunts()">Réessayer</button>
+    </div>
+  } @else {
+    <section class="section">
+      <div class="section__entete">
+        <div>
+          <p class="section__numero">01</p>
+          <h2 class="section__titre">Mes demandes</h2>
+        </div>
+        <span class="section__compteur">{{ demandes().length }}</span>
+      </div>
+
+      @if (demandes().length === 0) {
+        <div class="etat">
+          <span class="material-symbols-outlined">inbox</span>
+          <p>Vous n’avez aucune demande de réservation.</p>
+        </div>
+      } @else {
+        <div class="liste">
+          @for (emprunt of demandes(); track emprunt.id) {
+            <article class="reservation">
+              <div class="reservation__contenu">
+                <div class="reservation__ligne">
+                  <div>
+                    <p class="reservation__reference">{{ emprunt.materielNom }}</p>
+                    <h3>{{ emprunt.modeleNom }}</h3>
+                  </div>
+                  <span
+                    class="statut"
+                    [class.statut--attente]="emprunt.statut === 'EN_ATTENTE'"
+                    [class.statut--refuse]="emprunt.statut === 'REFUSE'"
+                  >
+                    {{ libelleStatut(emprunt.statut) }}
+                  </span>
+                </div>
+
+                <dl class="reservation__dates">
+                  <div>
+                    <dt>Demandée le</dt>
+                    <dd>{{ emprunt.dateDemandeEmprunt | date: 'dd/MM/yyyy' }}</dd>
+                  </div>
+                  <div>
+                    <dt>Début</dt>
+                    <dd>{{ emprunt.dateDebutEmprunt | date: 'dd/MM/yyyy' }}</dd>
+                  </div>
+                  <div>
+                    <dt>Retour prévu</dt>
+                    <dd>{{ emprunt.dateRetourEmpruntPrevisionelle | date: 'dd/MM/yyyy' }}</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
+
+    <section class="section">
+      <div class="section__entete">
+        <div>
+          <p class="section__numero">02</p>
+          <h2 class="section__titre">Réservations en cours</h2>
+        </div>
+        <span class="section__compteur">{{ reservationsEnCours().length }}</span>
+      </div>
+
+      @if (reservationsEnCours().length === 0) {
+        <div class="etat">
+          <span class="material-symbols-outlined">event_available</span>
+          <p>Vous n’avez aucune réservation en cours.</p>
+        </div>
+      } @else {
+        <div class="liste">
+          @for (emprunt of reservationsEnCours(); track emprunt.id) {
+            <article class="reservation reservation--active">
+              <div class="reservation__contenu">
+                <div class="reservation__ligne">
+                  <div>
+                    <p class="reservation__reference">{{ emprunt.materielNom }}</p>
+                    <h3>{{ emprunt.modeleNom }}</h3>
+                  </div>
+                  <span class="statut statut--approuve">
+                    {{ libelleStatut(emprunt.statut) }}
+                  </span>
+                </div>
+
+                <dl class="reservation__dates">
+                  <div>
+                    <dt>Début</dt>
+                    <dd>{{ emprunt.dateDebutEmprunt | date: 'dd/MM/yyyy' }}</dd>
+                  </div>
+                  <div>
+                    <dt>Retour prévu</dt>
+                    <dd>{{ emprunt.dateRetourEmpruntPrevisionelle | date: 'dd/MM/yyyy' }}</dd>
+                  </div>
+                  <div>
+                    <dt>Matériel</dt>
+                    <dd>#{{ emprunt.materielId }}</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
+  }
+</main>

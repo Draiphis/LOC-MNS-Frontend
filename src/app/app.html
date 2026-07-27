@@ -11,7 +11,7 @@
       <h1 class="top-app-bar__title">MNS Loc</h1>
     </div>
     <div class="top-app-bar__right">
-      <button class="icon-btn">
+      <button class="icon-btn" [routerLink]="['/profil']" aria-label="Voir mon profil">
         <span class="material-symbols-outlined">account_circle</span>
       </button>
     </div>
@@ -30,17 +30,13 @@
   <div class="drawer__inner">
     <h2 class="drawer__title">MNS Loc</h2>
     <nav class="drawer__nav">
-      <a class="drawer__link drawer__link" [routerLink]="['/catalogue']">
+      <a class="drawer__link" [routerLink]="['/catalogue']" (click)="toggleDrawer()">
         <span class="material-symbols-outlined">inventory_2</span>
         <span>Catalogue</span>
       </a>
-      <a class="drawer__link" href="#">
+      <a class="drawer__link" [routerLink]="['/profil']" (click)="toggleDrawer()">
         <span class="material-symbols-outlined">history_edu</span>
         <span>Profil</span>
-      </a>
-      <a class="drawer__link" [routerLink]="['/emprunt']">
-        <span class="material-symbols-outlined">event_available</span>
-        <span>Reservations</span>
       </a>
       <a class="drawer__link" [routerLink]="['/connexion']" (click)="authService.deconnexion()">
         <span class="material-symbols-outlined">settings</span>
