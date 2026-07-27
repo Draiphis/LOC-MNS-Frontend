@@ -1,0 +1,235 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 4rem);
+  background: #f8f9fa;
+  color: #191c1d;
+  font-family: 'Inter', sans-serif;
+}
+
+.utilisateur {
+  width: min(1080px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 3rem 0 5rem;
+}
+
+.utilisateur__entete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #dec0bd;
+}
+
+.utilisateur__label {
+  margin: 0;
+  color: #7f1d1d;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.utilisateur h1 {
+  margin: 0.5rem 0;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.utilisateur__description {
+  max-width: 38rem;
+  margin: 0;
+  color: #6b7280;
+}
+
+.utilisateur__entete a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  color: #7f1d1d;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.formulaire-panel {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  margin-top: 3rem;
+  border: 1px solid #dec0bd;
+  background: #fff;
+}
+
+.formulaire-panel__repere {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 2rem;
+  background: #5f030a;
+  color: #fff;
+}
+
+.formulaire-panel__repere .material-symbols-outlined {
+  margin-bottom: 2rem;
+  font-size: 3rem;
+}
+
+.formulaire-panel__repere p {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.formulaire-panel__repere > span:last-child {
+  margin-top: auto;
+  color: #ffb3ad;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+form {
+  padding: 2.5rem;
+}
+
+.champs {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.champs--deux {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label > span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid #dec0bd;
+  border-radius: 0;
+  background: #f8f9fa;
+  color: #191c1d;
+  font: inherit;
+  outline: none;
+}
+
+input:focus {
+  border-color: #7f1d1d;
+  box-shadow: 0 0 0 2px rgba(127, 29, 29, 0.12);
+}
+
+small {
+  color: #93000a;
+  font-size: 0.72rem;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.message--succes {
+  background: #d5f6e8;
+  color: #005236;
+}
+
+.message--erreur {
+  background: #ffdad6;
+  color: #93000a;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #edeeef;
+}
+
+.actions p {
+  max-width: 26rem;
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.actions button {
+  flex: 0 0 auto;
+  padding: 1rem 1.4rem;
+  border: 0;
+  background: #7f1d1d;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.actions button:hover:not(:disabled) {
+  background: #991b1b;
+}
+
+.actions button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+@media (max-width: 760px) {
+  .utilisateur {
+    width: min(100% - 2rem, 1080px);
+    padding-top: 2rem;
+  }
+
+  .utilisateur__entete,
+  .actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .formulaire-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .formulaire-panel__repere {
+    min-height: 10rem;
+  }
+
+  .formulaire-panel__repere > span:last-child {
+    margin-top: 1rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  .champs--deux {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,131 @@
+<main class="utilisateur">
+  <section class="utilisateur__entete">
+    <div>
+      <p class="utilisateur__label">ADMINISTRATION</p>
+      <h1>Ajouter un utilisateur</h1>
+      <p class="utilisateur__description">
+        Créez un accès personnel au catalogue et au système de réservation.
+      </p>
+    </div>
+
+    <a [routerLink]="['/admin/emprunts']">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Retour aux emprunts
+    </a>
+  </section>
+
+  <section class="formulaire-panel">
+    <div class="formulaire-panel__repere">
+      <span class="material-symbols-outlined">person_add</span>
+      <p>NOUVEAU COMPTE</p>
+      <span>Rôle attribué : utilisateur</span>
+    </div>
+
+    <form [formGroup]="formulaire" (ngSubmit)="creerUtilisateur()" novalidate>
+      @if (confirmation()) {
+        <div class="message message--succes" role="status">
+          <span class="material-symbols-outlined">check_circle</span>
+          {{ confirmation() }}
+        </div>
+      }
+
+      @if (erreur()) {
+        <div class="message message--erreur" role="alert">
+          <span class="material-symbols-outlined">error</span>
+          {{ erreur() }}
+        </div>
+      }
+
+      <div class="champs champs--deux">
+        <label>
+          <span>Prénom</span>
+          <input type="text" formControlName="prenom" autocomplete="given-name" />
+          @if (formulaire.controls.prenom.touched && formulaire.controls.prenom.invalid) {
+            <small>Le prénom est obligatoire.</small>
+          }
+        </label>
+
+        <label>
+          <span>Nom</span>
+          <input type="text" formControlName="nom" autocomplete="family-name" />
+          @if (formulaire.controls.nom.touched && formulaire.controls.nom.invalid) {
+            <small>Le nom est obligatoire.</small>
+          }
+        </label>
+      </div>
+
+      <div class="champs champs--deux">
+        <label>
+          <span>Adresse e-mail</span>
+          <input type="email" formControlName="email" autocomplete="email" />
+          @if (formulaire.controls.email.touched && formulaire.controls.email.hasError('required')) {
+            <small>L’adresse e-mail est obligatoire.</small>
+          } @else if (
+            formulaire.controls.email.touched && formulaire.controls.email.hasError('email')
+          ) {
+            <small>L’adresse e-mail n’est pas valide.</small>
+          }
+        </label>
+
+        <label>
+          <span>Date de naissance</span>
+          <input
+            type="date"
+            formControlName="dateDeNaissance"
+            [max]="dateMaxNaissance"
+            autocomplete="bday"
+          />
+          @if (
+            formulaire.controls.dateDeNaissance.touched &&
+            formulaire.controls.dateDeNaissance.invalid
+          ) {
+            <small>La date de naissance est obligatoire.</small>
+          }
+        </label>
+      </div>
+
+      <div class="champs champs--deux">
+        <label>
+          <span>Mot de passe temporaire</span>
+          <input type="password" formControlName="password" autocomplete="new-password" />
+          @if (formulaire.controls.password.touched && formulaire.controls.password.invalid) {
+            <small>Le mot de passe doit contenir entre 8 et 36 caractères.</small>
+          }
+        </label>
+
+        <label>
+          <span>Confirmer le mot de passe</span>
+          <input
+            type="password"
+            formControlName="confirmationPassword"
+            autocomplete="new-password"
+          />
+          @if (
+            formulaire.controls.confirmationPassword.touched &&
+            formulaire.controls.confirmationPassword.hasError('required')
+          ) {
+            <small>La confirmation est obligatoire.</small>
+          } @else if (
+            formulaire.controls.confirmationPassword.hasError('motsDePasseDifferents')
+          ) {
+            <small>Les mots de passe ne correspondent pas.</small>
+          }
+        </label>
+      </div>
+
+      <div class="actions">
+        <p>
+          L’utilisateur pourra se connecter immédiatement avec l’adresse e-mail et le mot de passe
+          renseignés.
+        </p>
+        <button type="submit" [disabled]="envoiEnCours()">
+          @if (envoiEnCours()) {
+            Création en cours…
+          } @else {
+            Créer l’utilisateur
+          }
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

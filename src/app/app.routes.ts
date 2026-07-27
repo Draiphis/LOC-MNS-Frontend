@@ -4,6 +4,7 @@ import { Catalogue } from './pages/catalogue/catalogue';
 import { DemandeEmprunt } from './pages/demande-emprunt/demande-emprunt';
 import { ValidationEmprunt } from './pages/validation-emprunt/validation-emprunt';
 import { Profil } from './pages/profil/profil';
+import { AjoutUtilisateur } from './pages/ajout-utilisateur/ajout-utilisateur';
 import { utilisateurGuard } from './guards/utilisateur-guard';
 import { adminGuard } from './guards/admin-guard';
 
@@ -15,6 +16,11 @@ export const routes: Routes = [
   {
     path: 'admin/emprunts',
     component: ValidationEmprunt,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'admin/utilisateurs/nouveau',
+    component: AjoutUtilisateur,
     canActivate: [adminGuard],
   },
   {
