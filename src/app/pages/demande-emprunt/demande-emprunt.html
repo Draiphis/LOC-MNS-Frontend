@@ -12,6 +12,31 @@
       </div>
 
       <div class="form-card">
+        @if (chargementDisponibilite()) {
+          <div class="availability-notice availability-notice--loading">
+            Vérification des disponibilités…
+          </div>
+        } @else if (disponibilite(); as disponibiliteModele) {
+          <div
+            class="availability-notice"
+            [class.availability-notice--unavailable]="!disponibiliteModele.reservable"
+          >
+            <span class="material-symbols-outlined">
+              {{ disponibiliteModele.reservable ? 'event_available' : 'event_busy' }}
+            </span>
+            <div>
+              <strong>
+                {{
+                  disponibiliteModele.reservable
+                    ? 'Période réservable'
+                    : 'Aucun créneau réservable'
+                }}
+              </strong>
+              <p>{{ disponibiliteModele.message }}</p>
+            </div>
+          </div>
+        }
+
         <div class="form-fields">
           <!-- DATE DEBUT -->
           <div class="date-row">
@@ -21,7 +46,13 @@
               <div class="input-wrapper">
                 <span class="material-symbols-outlined input-icon">calendar_today</span>
 
-                <input class="field-input" type="date" [(ngModel)]="dateDebut" />
+                <input
+                  class="field-input"
+                  type="text"
+                  [value]="dateDebut || 'Choisissez une date dans le calendrier'"
+                  [disabled]="chargementDisponibilite() || !disponibilite()?.reservable"
+                  readonly
+                />
               </div>
             </div>
 
@@ -32,9 +63,69 @@
               <div class="input-wrapper">
                 <span class="material-symbols-outlined input-icon">calendar_today</span>
 
-                <input class="field-input" type="date" [(ngModel)]="dateFin" />
+                <input
+                  class="field-input"
+                  type="text"
+                  [value]="dateFin || 'Choisissez une seconde date'"
+                  [disabled]="chargementDisponibilite() || !disponibilite()?.reservable"
+                  readonly
+                />
               </div>
             </div>
+          </div>
+
+          <div class="booking-calendar" [class.booking-calendar--disabled]="!disponibilite()?.reservable">
+            <div class="booking-calendar__header">
+              <button
+                type="button"
+                class="booking-calendar__nav"
+                [disabled]="!peutAfficherMoisPrecedent()"
+                (click)="moisPrecedent()"
+                aria-label="Mois précédent"
+              >
+                ‹
+              </button>
+              <strong>{{ libelleMois() }}</strong>
+              <button
+                type="button"
+                class="booking-calendar__nav"
+                [disabled]="!peutAfficherMoisSuivant()"
+                (click)="moisSuivant()"
+                aria-label="Mois suivant"
+              >
+                ›
+              </button>
+            </div>
+
+            <div class="booking-calendar__grid booking-calendar__weekdays">
+              @for (jourSemaine of joursSemaine; track jourSemaine) {
+                <span>{{ jourSemaine }}</span>
+              }
+            </div>
+
+            <div class="booking-calendar__grid">
+              @for (jour of joursDuCalendrier(); track $index) {
+                @if (jour) {
+                  <button
+                    type="button"
+                    class="booking-calendar__day"
+                    [disabled]="jourDesactive(jour.iso)"
+                    [class.booking-calendar__day--start]="jour.iso === dateDebut"
+                    [class.booking-calendar__day--end]="jour.iso === dateFin"
+                    [class.booking-calendar__day--range]="jourDansPeriode(jour.iso)"
+                    (click)="selectionnerJour(jour.iso)"
+                  >
+                    {{ jour.numero }}
+                  </button>
+                } @else {
+                  <span></span>
+                }
+              }
+            </div>
+
+            <p class="booking-calendar__help">
+              Sélectionnez la date de début puis la date de fin. Les jours grisés sont indisponibles.
+            </p>
           </div>
         </div>
 
@@ -52,7 +143,7 @@
         </div>
 
         <!-- BUTTON -->
-        <button class="btn-submit" (click)="reserver()">
+        <button class="btn-submit" [disabled]="!peutReserver()" (click)="reserver()">
           Confirmer la demande
 
           <span class="material-symbols-outlined">send</span>
@@ -67,7 +158,9 @@
           <img [src]="getImage()" [alt]="modele()?.nom" class="asset-card__image" />
 
           <div class="asset-card__badge-wrapper">
-            <span class="asset-badge">Available</span>
+            <span class="asset-badge">
+              {{ disponibilite()?.reservable ? 'Réservable' : 'Indisponible' }}
+            </span>
           </div>
         </div>
 
